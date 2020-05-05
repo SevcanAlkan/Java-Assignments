@@ -15,6 +15,8 @@ Write the Intervalle.java program which:
 Note that, in elementary logic, " no (A and B) " can also be written " ( not A) or ( not B) ".
 Test your program with the values -20, -10, -2, -1, 0, 1, 1.5, 2, 3 and 4.
  */
+
+// [2.3 [U] 0.1] U [-10, -2]  ==  [2.3, 2, 1, 0.1, -10, -2]
 public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -24,9 +26,10 @@ public class Main {
         AtomicBoolean isBelongsToI = new AtomicBoolean(false);
         Scanner sc = new Scanner(System.in); // Scanner using https://www.w3schools.com/java/java_user_input.asp
         List<Double> I = new ArrayList<>();
-        Double[] tempArray = {2.3, 0.1, -10.0, -2.0};
+        Double[] tempArray = {2.3, 2.0, 1.0, 0.1, -10.0, -2.0};
         I.addAll(Arrays.asList(tempArray));
         tempArray = null;
+        Double number = null;
 
         while (continueToWorking) {
             try {
@@ -38,12 +41,13 @@ public class Main {
                     System.out.println("decimal number, please!");
                     sc.nextLine();
                 }
-                double number = sc.nextDouble();
+                number = sc.nextDouble();
                 sc.nextLine();
 
                 // Check and than print the result
+                Double finalNumber = number;
                 I.forEach(member -> {
-                    if(number == member){
+                    if (isBelongsToI.get() == false && Double.compare(finalNumber, member) == 0) {
                         isBelongsToI.set(true);
                     }
                 });
@@ -62,6 +66,7 @@ public class Main {
                     continueToWorking = false;
                 } else {
                     isBelongsToI.set(false);
+                    number = null;
                 }
                 System.out.println("--------------------------------------------");
 
