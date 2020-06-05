@@ -1,5 +1,10 @@
 package com.exercises;
 
+import com.exercises.common.GuessWhoCondition;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.Scanner;
 
 public class ExerciseTwoPartOne {
@@ -12,10 +17,10 @@ public class ExerciseTwoPartOne {
 
         System.out.println("Please answer questions as true: yes, false: no");
 
-        boolean hasMustaches = this.readAnswer("Does your character have mustaches?:");
-        boolean hasGlasses = this.readAnswer("Does your character wear glasses?:");
-        boolean hasHat = this.readAnswer("Does your character wear a hat?:");
-        boolean isAMan = this.readAnswer("Is your character a man?:");
+        boolean hasMustaches = this.readAnswer("Does your character have mustaches?�");
+        boolean hasGlasses = this.readAnswer("Does your character wear glasses?�");
+        boolean hasHat = this.readAnswer("Does your character wear a hat?�");
+        boolean isAMan = this.readAnswer("Is your character a man?�");
 
         System.out.print("==> The character you are thinking of is ");
 
@@ -31,10 +36,10 @@ public class ExerciseTwoPartOne {
             System.out.println("Colonel Mustard");
         } else if (!hasGlasses && !hasHat && !hasMustaches && !isAMan) { // Rose
             System.out.println("Miss Rose");
-        } else if (hasHat && hasGlasses && !hasMustaches) { //Professor Plum
-            System.out.println("Professor Plum");
-        } else if (isAMan && hasGlasses && !hasMustaches && !hasHat) { //Mr Leblanc
-            System.out.println("Mr Leblanc");
+        } else if (hasHat && hasGlasses && !hasMustaches) { //Professor Violent
+            System.out.println("Professor Violent");
+        } else if (!isAMan && hasGlasses && !hasMustaches && !hasHat) { //Ms Leblanc
+            System.out.println("Ms Leblanc");
         } else if (isAMan && hasGlasses && !hasMustaches && !hasHat) { //Reverend Olive
             System.out.println("Reverend Olive");
         }  else {
@@ -56,5 +61,16 @@ public class ExerciseTwoPartOne {
             clavier.nextLine();
         }
         return clavier.nextBoolean();
+    }
+
+    private Hashtable<Integer, String> loadQuestions() {
+        Hashtable<Integer, String> questions = new Hashtable<>();
+
+        questions.put(1, "Does your character have mustaches?:");
+        questions.put(2, "Does your character wear glasses?");
+        questions.put(3, "Does your character wear a hat?");
+        questions.put(4, "Is your character a man?");
+
+        return questions;
     }
 }
