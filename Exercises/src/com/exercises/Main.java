@@ -58,6 +58,10 @@ public class Main {
                         ExerciseEleven runEleven = new ExerciseEleven();
                         runEleven.Run();
                         break;
+                    case 9:
+                        ExerciseTwelve runTwelve = new ExerciseTwelve();
+                        runTwelve.Run();
+                        break;
                     default:
                         System.out.println("Option not found!");
                         break;
@@ -82,6 +86,7 @@ public class Main {
         System.out.println("(6) Expression ");
         System.out.println("(7) variables \\ operators and expressions");
         System.out.println("(8) Calculation of averages");
+        System.out.println("(9) Scalar products (Tables)");
 
         System.out.println("(0) close the app");
         System.out.println("--------------------------------------------");
