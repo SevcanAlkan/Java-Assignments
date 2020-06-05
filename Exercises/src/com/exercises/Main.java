@@ -34,6 +34,30 @@ public class Main {
                         ExerciseTwoPartOne runTwoPartOne = new ExerciseTwoPartOne();
                         runTwoPartOne.Run();
                         break;
+                    case 3:
+                        ExerciseTwoPartTwo runTwoPartTwo = new ExerciseTwoPartTwo();
+                        runTwoPartTwo.Run();
+                        break;
+                    case 4:
+                        ExerciseThree runThree = new ExerciseThree();
+                        runThree.Run();
+                        break;
+                    case 5:
+                        ExerciseFour runFour = new ExerciseFour();
+                        runFour.Run();
+                        break;
+                    case 6:
+                        ExerciseFive runFive = new ExerciseFive();
+                        runFive.Run();
+                        break;
+                    case 7:
+                        ExerciseSix runSix = new ExerciseSix();
+                        runSix.Run();
+                        break;
+                    case 8:
+                        ExerciseEleven runEleven = new ExerciseEleven();
+                        runEleven.Run();
+                        break;
                     default:
                         System.out.println("Option not found!");
                         break;
@@ -53,6 +77,11 @@ public class Main {
         System.out.println("(1) Exchange of three values Data");
         System.out.println("(2) Guess who");
         System.out.println("(3) Guess who in three questions");
+        System.out.println("(4) Population");
+        System.out.println("(5) Fondue");
+        System.out.println("(6) Expression ");
+        System.out.println("(7) variables \\ operators and expressions");
+        System.out.println("(8) Calculation of averages");
 
         System.out.println("(0) close the app");
         System.out.println("--------------------------------------------");
