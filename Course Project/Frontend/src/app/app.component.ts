@@ -1,26 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Todo } from './models/todo.mode';
+import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'todolist';
+export class AppComponent implements OnInit, OnDestroy {
 
-  myTimestamp = Date.now();
-  dateInLocalTimezone;
-  
-  date1;
-  date2;
+  public items: Todo[];
+  public showIsDeleted: boolean;
+  public showIsCompleted: boolean;
 
-  constructor() {
-    const date = new Date(this.myTimestamp.valueOf());
-    const diff = new Date(this.myTimestamp.valueOf()).getTimezoneOffset();
-    this.dateInLocalTimezone = date.setMinutes(diff);
+  constructor(private todoService: TodoService) {
+    this.items = [];
+    this.showIsCompleted = true;
+    this.showIsDeleted = false;
+  }
 
-    this.date1 = new Date().toUTCString();
+  ngOnInit() {
+    this.loadTodoItems();
+  }
 
-    this.date2 = new Date(this.dateInLocalTimezone.valueOf()).toTimeString();
+  ngOnDestroy() {
+
+  }
+
+  private loadTodoItems(): void {
+    this.todoService.get(this.showIsDeleted, this.showIsCompleted).subscribe(data => {
+      if (data) {
+        this.items = data as Todo[];
+      }
+    });
   }
 }
