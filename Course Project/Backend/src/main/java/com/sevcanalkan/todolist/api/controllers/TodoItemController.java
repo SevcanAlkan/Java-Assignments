@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,47 @@ public class TodoItemController {
 
     // /todo
     @GetMapping
-    public ResponseEntity<List<Todo>> Get() { //date filter, isCompleted, isDeleted
-        return new ResponseEntity(this.repository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Todo>> Get(@RequestParam("showIsDelete") boolean showIsDelete,
+                                          @RequestParam("showIsCompleted") boolean showIsCompleted,
+                                          @RequestParam("showOnlyIsDeleted") boolean showOnlyIsDeleted,
+                                          @RequestParam("showOnlyIsCompleted") boolean showOnlyIsCompleted,
+                                          @RequestParam("showOnlyIsImportant") boolean showOnlyIsImportant) {
+        List<Todo> result = new ArrayList<>();
+
+        if(showIsDelete || showIsCompleted) {
+            List<Todo> unCompletedRecords = repository.findAllUnCompleted();
+
+            if(showIsDelete) {
+                List<Todo> deletedRecords = repository.findAllOnlyDeleted();
+                result.addAll(deletedRecords);
+            }
+
+            if(showIsCompleted) {
+                List<Todo> completedRecords = repository.findAllOnlyCompleted();
+                result.addAll(completedRecords);
+            }
+
+            result.addAll(unCompletedRecords);
+        } else if (showOnlyIsCompleted || showOnlyIsDeleted || showOnlyIsImportant) {
+
+            if(showOnlyIsCompleted) {
+                List<Todo> completedRecords = repository.findAllOnlyCompleted();
+                result.addAll(completedRecords);
+            } else if (showOnlyIsDeleted) {
+                List<Todo> deletedRecords = repository.findAllOnlyDeleted();
+                result.addAll(deletedRecords);
+            } else if(showOnlyIsImportant) {
+                List<Todo> importantRecords = repository.findAllOnlyImportant();
+                result.addAll(importantRecords);
+            }
+
+        } else {
+            List<Todo> records = repository.findAllUnCompleted();
+
+            result.addAll(records);
+        }
+
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     // /todo/id

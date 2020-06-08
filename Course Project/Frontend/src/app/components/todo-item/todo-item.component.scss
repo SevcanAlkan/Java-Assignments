@@ -18,7 +18,7 @@
         max-width: 58rem;
     }
 
-    @include media('>desktop', '<=LGdesktop') {
+    @include media('>desktop') {
         width: 70rem;
         max-width: 70rem;
     }

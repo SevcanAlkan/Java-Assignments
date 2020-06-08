@@ -13,17 +13,29 @@ import { of } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
 
   public items: Todo[];
+
   public showIsDeleted: boolean;
   public showIsCompleted: boolean;
+
+  public showOnlyIsDeleted: boolean;
+  public showOnlyIsCompleted: boolean;
+  public showOnlyIsImportant: boolean;
+
   public editModeEnabled: boolean;
   public tempItem: Todo;
 
+  public isLoading: boolean;
+
   constructor(private todoService: TodoService) {
     this.items = [];
-    this.showIsCompleted = true;
+    this.showIsCompleted = false;
     this.showIsDeleted = false;
+    this.showOnlyIsDeleted = false;
+    this.showOnlyIsCompleted = false;
+    this.showOnlyIsImportant = false;
     this.editModeEnabled = false;
     this.tempItem = {} as Todo;
+    this.isLoading = false;
   }
 
   ngOnInit() {
@@ -86,10 +98,71 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loadTodoItems();
   }
 
+  public setShowOption(selection: number): void {
+    this.showOnlyIsImportant = false;
+    this.showOnlyIsDeleted = false;
+    this.showOnlyIsCompleted = false;
+
+    switch (selection) {
+      case 1:
+        this.showIsCompleted = !this.showIsCompleted;
+        break;
+      case 2:
+        this.showIsDeleted = !this.showIsDeleted;
+        break;
+      default:
+        break;
+    }
+
+    this.loadTodoItems();
+  }
+
+  public setShowOnly(selection: number): void {
+    this.showIsDeleted = false;
+    this.showIsCompleted = false;
+
+    switch (selection) {
+      case 1:
+        this.showOnlyIsDeleted = !this.showOnlyIsDeleted;
+        this.showOnlyIsCompleted = false;
+        this.showOnlyIsImportant = false;
+        break;
+      case 2:
+        this.showOnlyIsCompleted = !this.showOnlyIsCompleted;
+        this.showOnlyIsDeleted = false;
+        this.showOnlyIsImportant = false;
+        break;
+      case 3:
+        this.showOnlyIsImportant = !this.showOnlyIsImportant;
+        this.showOnlyIsDeleted = false;
+        this.showOnlyIsCompleted = false;
+        break;
+      default:
+        break;
+    }
+
+    this.loadTodoItems();
+  }
+
+  public clearFilters(): void {
+    this.showOnlyIsImportant = false;
+    this.showOnlyIsDeleted = false;
+    this.showOnlyIsCompleted = false;
+    this.showIsDeleted = false;
+    this.showIsCompleted = false;
+
+    this.loadTodoItems();
+  }
+
   private loadTodoItems(): void {
-    this.todoService.get(this.showIsDeleted, this.showIsCompleted).subscribe(data => {
-      if (data) {
+    this.isLoading = true;
+
+    this.todoService.get(this.showIsDeleted, this.showIsCompleted,
+      this.showOnlyIsDeleted, this.showOnlyIsCompleted, this.showOnlyIsImportant)
+      .subscribe(data => {
+        if (data) {
         this.items = data as Todo[];
+        this.isLoading = false;
       }
     });
   }
