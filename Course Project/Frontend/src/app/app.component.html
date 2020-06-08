@@ -8,7 +8,7 @@
 
 <br />
 
-<div class="container">
+<div class="container-fluid">
 
   <div class="row" class="menu-toolbar">
     <button type="button" class="btn btn-primary"
@@ -24,10 +24,12 @@
   <ng-container *ngIf="editModeEnabled">
 
     <div class="row">
-      <app-edit-item 
-        [item]="tempItem"
-        (completeEvent)="completeEditing()">
-      </app-edit-item>
+      <div class="justify-content-center">
+        <app-edit-item 
+          [item]="tempItem"
+          (completeEvent)="completeEditing()">
+        </app-edit-item>
+      </div>
     </div>
 
   </ng-container>

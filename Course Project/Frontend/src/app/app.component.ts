@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.showIsCompleted = true;
     this.showIsDeleted = false;
     this.editModeEnabled = false;
+    this.tempItem = {} as Todo;
   }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public getItemCount(): number {
     return this.items.length;
   }
-  
+
   public add(): void {
     this.tempItem = {} as Todo;
     this.editModeEnabled = true;

@@ -18,11 +18,13 @@ public class Todo {
 
     private String title;
 
+    private String description;
+
     private Boolean isCompleted;
 
     private Boolean isDeleted;
 
-    private String dueDatetime;
+    private Boolean isImportant;
 
     public Integer getId() {
         return id;
@@ -56,11 +58,19 @@ public class Todo {
         isDeleted = deleted;
     }
 
-    public String getDueDatetime() {
-        return dueDatetime;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDueDatetime(String dueDatetime) {
-        this.dueDatetime = dueDatetime;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getIsImportant() {
+        return isImportant;
+    }
+
+    public void setIsImportant(Boolean important) {
+        isImportant = important;
     }
 }
