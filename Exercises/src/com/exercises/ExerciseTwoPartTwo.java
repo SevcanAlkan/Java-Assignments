@@ -1,11 +1,14 @@
 package com.exercises;
 
-import java.util.Hashtable;
+import com.exercises.common.GuessWhoCondition;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ExerciseTwoPartTwo {
     Scanner clavier = new Scanner(System.in);
+    List<GuessWhoCondition> conditions;
 
     public void Run(){
         System.out.print("Think of a character: Miss Rose, ");
@@ -14,38 +17,24 @@ public class ExerciseTwoPartTwo {
 
         System.out.println("Please answer questions as true: yes, false: no");
 
-        boolean hasMustaches = this.readAnswer("Does your character have mustaches?�");
-        boolean hasGlasses = this.readAnswer("Does your character wear glasses?�");
-        boolean hasHat = this.readAnswer("Does your character wear a hat?�");
-        boolean isAMan = this.readAnswer("Is your character a man?�");
+        LoadConditions();
+        Boolean hasMustaches, hasGlasses, hasHat, isAMan;
+        GuessWhoCondition result;
+
+        hasMustaches = this.readAnswer("Does your character have mustaches?:");
+        //characterName = getMatch(hasMustaches, null, null, null);
+        hasGlasses = this.readAnswer("Does your character wear glasses?:");
+        hasHat = this.readAnswer("Does your character wear a hat?:");
+        isAMan = this.readAnswer("Is your character a man?:");
+
+        // Load questions
+        // Ask a question
+        // remove question from list
+        // Check is there only one match
+        // If matching with only one person write its name.
+        // If not ask next question
 
         System.out.print("==> The character you are thinking of is ");
-
-        /*******************************************
-         * Complete the program from here.
-         *******************************************/
-
-        // Miss Rose, Professor Violet, Colonel Mustard, Reverend Olive, Mr Leblanc
-        // Only the Colonel Mustard has a mustache, wear glasses all except M Miss Rose
-        // , and Professor Plum is the only one with a hat.
-
-        if (hasMustaches && isAMan && !hasHat && hasGlasses) { //Colonel
-            System.out.println("Colonel Mustard");
-        } else if (!hasGlasses && !hasHat && !hasMustaches && !isAMan) { // Rose
-            System.out.println("Miss Rose");
-        } else if (hasHat && hasGlasses && !hasMustaches) { //Professor Plum
-            System.out.println("Professor Plum");
-        } else if (isAMan && hasGlasses && !hasMustaches && !hasHat) { //Mr Leblanc
-            System.out.println("Mr Leblanc");
-        } else if (isAMan && hasGlasses && !hasMustaches && !hasHat) { //Reverend Olive
-            System.out.println("Reverend Olive");
-        }  else {
-            System.out.println("No any match!");
-        }
-
-        /*******************************************
-         * Do not modify anything after this line.
-         *******************************************/
 
         System.out.println();
     }
@@ -60,18 +49,35 @@ public class ExerciseTwoPartTwo {
         return clavier.nextBoolean();
     }
 
-    private Hashtable<Integer, String> loadQuestions() {
-        Hashtable<Integer, String> questions = new Hashtable<>();
+    private void LoadConditions() {
+        conditions = new ArrayList<>();
 
-        questions.put(1, "Does your character have mustaches?:");
-        questions.put(2, "Does your character wear glasses?");
-        questions.put(3, "Does your character wear a hat?");
-        questions.put(4, "Is your character a man?");
+        GuessWhoCondition colonel = new GuessWhoCondition("Colonel Mustard", true, true,false,true);
+        GuessWhoCondition rose = new GuessWhoCondition("Miss Rose", true, true,false,true);
+        GuessWhoCondition violet = new GuessWhoCondition("Professor Violet", true, true,false,true);
+        GuessWhoCondition leblanc = new GuessWhoCondition("Ms Leblanc", true, true,false,true);
+        GuessWhoCondition reverend = new GuessWhoCondition("Reverend Olive", true, true,false,true);
 
-        return questions;
+        conditions.add(colonel);
+        conditions.add(rose);
+        conditions.add(violet);
+        conditions.add(leblanc);
+        conditions.add(reverend);
     }
 
-    private List<> loadMatchConditions() {
-
+    private String getMatch(Boolean hasMustaches, Boolean isAMan, Boolean hasHat, Boolean hasGlasses) {
+        if (hasMustaches && isAMan && !hasHat && hasGlasses) { //Colonel
+            return "Colonel Mustard";
+        } else if (!hasGlasses && !hasHat && !hasMustaches && !isAMan) { // Rose
+            return "Miss Rose";
+        } else if (hasHat && hasGlasses && !hasMustaches) { //Professor Violet
+            return "Professor Violet";
+        } else if (!isAMan && hasGlasses && !hasMustaches && !hasHat) { //Ms Leblanc
+            return "Ms Leblanc";
+        } else if (isAMan && hasGlasses && !hasMustaches && !hasHat) { //Reverend Olive
+            return "Reverend Olive";
+        }  else {
+            return "No any match!";
+        }
     }
 }
