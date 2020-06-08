@@ -1,12 +1,63 @@
-<div class="container">
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Todo List</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-      </div>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Todo List</a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
     </div>
-  </nav>
+  </div>
+</nav>
+
+<br />
+
+<div class="container">
+
+  <div class="row" class="menu-toolbar">
+    <button type="button" class="btn btn-primary"
+      [disabled]="editModeEnabled"
+      (click)="add()"
+      >Add New</button>
+    
+    <div class="float-right">
+      <h2 class="float-right">{{getItemCount()}}</h2>
+    </div>
+  </div>
+
+  <ng-container *ngIf="editModeEnabled">
+
+    <div class="row">
+      <app-edit-item 
+        [item]="tempItem"
+        (completeEvent)="completeEditing()">
+      </app-edit-item>
+    </div>
+
+  </ng-container>
+
+  <br />
+
+  <div class="row">
+    <div class="col-12">
+
+      <ng-container *ngIf="items && items.length > 0; else NoItem">
+        <div *ngFor="let item of items">
+          <div class="row justify-content-center">
+            <app-todo-item 
+              [item]="item"
+              (editEvent)="edit($event)"
+              (deleteEvent)="delete($event)"
+              (completeEvent)="complete($event)"
+              ></app-todo-item>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #NoItem>
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">All tasks completed, we couldn't find any todo item!</h1>
+            <p class="lead">Please try to add new todo item 👍</p>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
 </div>

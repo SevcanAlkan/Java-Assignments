@@ -12,24 +12,23 @@ export class TodoService {
   constructor(private http: HttpClient) {
   }
 
-  public get(showIsDelete: boolean = false, showIsCompleted: boolean = false): Observable<Todo[]> {
-    console.log(environment.apiUrl)
+  public get(showIsDelete: boolean = false, showIsCompleted: boolean = false): Observable<any> {
     return this.http.get<Todo[]>(environment.apiUrl + '/todo');
   }
 
-  public getById(id: number): Observable<Todo> {
+  public getById(id: number): Observable<any> {
     return this.http.get<Todo>(environment.apiUrl + `/todo/${id.toString()}`);
   }
 
-  public post(model: Todo): Observable<Todo> {
+  public post(model: Todo): Observable<any> {
     return this.http.post<Todo>(environment.apiUrl + `/todo`, model);
   }
 
-  public put(id: number, model: Todo): Observable<Todo> {
+  public put(id: number, model: Todo): Observable<any> {
     return this.http.put<Todo>(environment.apiUrl + `/todo/${id.toString()}`, model);
   }
 
-  public delete(id: number): Observable<void> {
+  public delete(id: number): Observable<any> {
     return this.http.delete<void>(environment.apiUrl + `/todo/${id.toString()}`);
   }
 }
