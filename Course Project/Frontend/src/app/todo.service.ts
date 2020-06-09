@@ -12,9 +12,9 @@ export class TodoService {
   constructor(private http: HttpClient) {
   }
 
-  public get(showIsDelete: boolean = false, showIsCompleted: boolean = false, showOnlyIsDeleted: boolean = false,
+  public get(showIsDeleted: boolean = false, showIsCompleted: boolean = false, showOnlyIsDeleted: boolean = false,
              showOnlyIsCompleted: boolean = false, showOnlyIsImportant: boolean = false): Observable<any> {
-    const params = new HttpParams().set('showIsDelete', showIsDelete)
+    const params = new HttpParams().set('showIsDelete', showIsDeleted)
       .set('showIsCompleted', showIsCompleted)
       .set('showOnlyIsDeleted', showOnlyIsDeleted)
       .set('showOnlyIsCompleted', showOnlyIsCompleted)
