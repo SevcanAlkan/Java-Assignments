@@ -14,11 +14,11 @@ export class TodoService {
 
   public get(showIsDeleted: boolean = false, showIsCompleted: boolean = false, showOnlyIsDeleted: boolean = false,
              showOnlyIsCompleted: boolean = false, showOnlyIsImportant: boolean = false): Observable<any> {
-    const params = new HttpParams().set('showIsDelete', showIsDeleted)
-      .set('showIsCompleted', showIsCompleted)
-      .set('showOnlyIsDeleted', showOnlyIsDeleted)
-      .set('showOnlyIsCompleted', showOnlyIsCompleted)
-      .set('showOnlyIsImportant', showOnlyIsImportant);
+    const params = new HttpParams().set('showIsDelete', showIsDeleted ? 'true' : 'false')
+      .set('showIsCompleted', showIsCompleted ? 'true' : 'false')
+      .set('showOnlyIsDeleted', showOnlyIsDeleted ? 'true' : 'false')
+      .set('showOnlyIsCompleted', showOnlyIsCompleted ? 'true' : 'false')
+      .set('showOnlyIsImportant', showOnlyIsImportant ? 'true' : 'false');
 
     return this.http.get<Todo[]>(environment.apiUrl + '/todo', { params });
   }
